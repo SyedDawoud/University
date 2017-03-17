@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SnL</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_level1">Level1Activity</string>
+    <string name="title_activity_level2">Level2Activity</string>
+    <string name="title_activity_level3">Level3Activity</string>
+    <string name="title_activity_level4">Level4Activity</string>
+    <string name="title_activity_level5">Level5Activity</string>
+</resources>

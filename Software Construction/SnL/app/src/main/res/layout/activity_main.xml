@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:fitsSystemWindows="true"
+    tools:context="com.dawoudaliapp.snl.MainActivity">
+
+    <ViewSwitcher
+        android:id="@+id/viewSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/back"
+                android:scaleType="fitXY" />
+
+            <Button
+                android:id="@+id/Start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+
+
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="130dp"
+                android:background="@null"
+                android:text="Start"
+                android:textColor="@color/lightpink"
+                android:textSize="40dp" />
+
+            <Button
+                android:id="@+id/about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/score"
+                android:layout_alignStart="@+id/score"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:text="About"
+                android:textColor="@color/myColor1"
+                android:textSize="40dp" />
+
+            <Button
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/about"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="85dp"
+                android:background="@null"
+                android:text="Scores"
+                android:textColor="@color/myColor2"
+                android:textSize="40dp"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@null"
+                android:text="Exit"
+                android:textColor="#0000FF"
+                android:textSize="40dp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="75dp"
+                android:text="Enjoy your experience with traditional Snake and Ladder Game. Reach the 100 before the opponent.
+As you proceed to higher level, rules will change. You will get more tough time.
+               *Level 1 and 2 are regular Levels
+               *On Level 3, AI will not be affected by Snakes
+               \n
+               *On Level 4, You can't use Ladders
+
+*On Level 5, AI isn't bounded by 100 position restriction
+
+
+
+        "
+                android:textAlignment="center"
+                android:textColor="#0000CD"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/backToMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="73dp"
+                android:background="@null"
+                android:text="Back"
+                android:textColor="#00FF00"
+                android:textSize="30dp" />
+
+
+        </RelativeLayout>
+
+
+    </ViewSwitcher>
+
+</android.support.design.widget.CoordinatorLayout>
