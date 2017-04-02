@@ -1,6 +1,9 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -55,80 +58,83 @@ public class CSVParser {
     
     
     
-    public void insertData() throws FileNotFoundException, SQLException{
+    public void insertData() throws FileNotFoundException, SQLException, IOException{
         // Opening the File
-        String filePath="src/GeoLiteCity-Location.csv";
+        String filePath="src/GeoLiteCity-Location_1.csv";
+        String fileToParse;
+        
+        BufferedReader buffer=new BufferedReader(new FileReader(filePath));
         File file=new File(filePath);
         CityRecord cr=new CityRecord();
-        Scanner scanner=new Scanner(file);
-        
-        
-        
-        scanner.nextLine();
-        scanner.nextLine();
+       
+   
         String txt;
-        while(scanner.hasNextLine()){
-        txt=scanner.nextLine();
+        buffer.readLine();
+        buffer.readLine();
+        while( (txt = buffer.readLine()) != null){
+        
+        //System.out.println(txt);
        String[] fulldata= txt.split(",");
        
       
        
-          Ps.setInt(1, Integer.parseInt(fulldata[0]));
+         // Ps.setInt(1, Integer.parseInt(fulldata[0]));
           cr.setLocation_id(Integer.parseInt(fulldata[0]));
           
-          Ps.setString(2, fulldata[1]);
+          //Ps.setString(2, fulldata[1]);
           cr.setCountry(fulldata[1]);
           
-          Ps.setString(3, fulldata[2]);
+          //Ps.setString(3, fulldata[2]);
           cr.setRegion(fulldata[2]);
           
-          Ps.setString(4, fulldata[3]);
+          //Ps.setString(4, fulldata[3]);
           cr.setCity(fulldata[3]);
           
-         Ps.setString(5, fulldata[4]);
+        // Ps.setString(5, fulldata[4]);
           cr.setPostalCode(fulldata[4]);
           
          
           
-         Ps.setFloat(8, Float.parseFloat(fulldata[5]));
+       // Ps.setFloat(8, Float.parseFloat(fulldata[5]));
          cr.setLongitude(Float.parseFloat(fulldata[5]));
           
           try{
-         Ps.setFloat(9, Float.parseFloat(fulldata[6]));
+         //Ps.setFloat(9, Float.parseFloat(fulldata[6]));
           cr.setLatitude(Float.parseFloat(fulldata[6]));
           }
            catch(ArrayIndexOutOfBoundsException e){
-             Ps.setFloat(9, 0);
+           //  Ps.setFloat(9, 0);
           cr.setLatitude(0);
           }
           
           
           
-          
+ 
           try{
-          Ps.setString(7, fulldata[7]);
+          //Ps.setString(7, fulldata[7]);
           cr.setMetroCode(fulldata[7]);
           }
           catch(ArrayIndexOutOfBoundsException e){
-              Ps.setString(7,"");
+            //  Ps.setString(7,"");
               cr.setMetroCode("");
           }
           
           
           try{
-           Ps.setString (6, fulldata[8]);
+           //Ps.setString (6, fulldata[8]);
            cr.setAreaCode(fulldata[8]);
           }
           catch(ArrayIndexOutOfBoundsException e){
-              Ps.setString(6,"");
+             // Ps.setString(6,"");
               cr.setAreaCode("");
           }
            
           
         
-            int executeUpdate = Ps.executeUpdate();
+            //int executeUpdate = Ps.executeUpdate();
           
           record.add(cr);
+          cr=new CityRecord();
           count++;
           
           
