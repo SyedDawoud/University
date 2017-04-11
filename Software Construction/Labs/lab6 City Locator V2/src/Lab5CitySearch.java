@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -137,21 +138,16 @@ public class Lab5CitySearch {
                 float f2 = sc.nextFloat();
 
                 Query query1 = session.createQuery("from Region");
-                Query query2 = session.createQuery("from City");
-                Query query3 = session.createQuery("from Country");
 
                 List<Region> result = query1.list();
-                List<City> result1 = query2.list();
-                List<Country> result2 = query2.list();
 
                 int id = 0;
-                String whichVal;
-                for (Country rv : result2) {
-                    System.out.println(rv.getLatitude());
-                    System.out.println(rv.getLongitude());
+
+                for (Region rv : result) {
+//                    System.out.println(rv.getLatitude());
+//                    System.out.println(rv.getLongitude());
                     if (rv.getLatitude() == f2 && rv.getLongitude() == f) {
                         id = rv.getId();
-                        whichVal = "Country";
                         break;
                     }
                 }
@@ -160,19 +156,22 @@ public class Lab5CitySearch {
                 if (id > 1) {
 
                     Map<Integer, Double> list = new HashMap<Integer, Double>();
-                    double dist;
+                    Map<Integer, Integer> list_key = new HashMap<Integer, Integer>();
+                    double dist = 0;
                     int amount = 0;
-                    for (int k = 0; k < count; k++) {
-                        if (k == id) {
-                            continue;
-                        }
+                    for (int k = id + 1; k < id + 50; k++) {
 
-                        query1 = session.createQuery("From Country where Id=?");
+                        query1 = session.createQuery("From Region where Id=?");
                         query1.setParameter(0, k);
-                        result = query1.list();
-                        dist = GreatDistance(f, result.get(0).getLongitude(), f2, result.get(0).getLatitude()) * 6371000;
-                        if (dist <= 100000) {
+                        List<Region> results = query1.list();
+                        //System.out.println(results);
+                        for (Region rv : results) {
+                            dist = GreatDistance(f, rv.getLongitude(), f2, rv.getLatitude()) * 6371000;
+                        }
+                        //System.out.println(dist);
+                        if (dist <= 10000000) {
                             list.put(k, dist);
+                            list_key.put(k, k);
                             amount++;
                         }
 
@@ -186,16 +185,21 @@ public class Lab5CitySearch {
                         userVal = sc.nextInt();
 
                     }
+
+                    List<Integer> l = new ArrayList<Integer>(list.keySet());
+                    int temp;
                     for (int k = 0; k < userVal; k++) {
-
-                        query2 = session.createQuery("From Country where Id=?");
-                        query2.setParameter(0, k);
-                        result = query2.list();
-
-                        //System.out.println(result.get(0).getCityName());
-                        System.out.println(result.get(0).getLongitude());
-                        System.out.println(result.get(0).getLatitude());
-                        System.out.println("Distance : " + list.get(k));
+                        temp = l.get(k);
+                        System.out.println(temp);
+                        query1 = session.createQuery("From Region where Id=?");
+                        query1.setParameter(0, temp);
+                        List<Region> result1 = query1.list();
+                        for (Region rv : result1) {
+                            System.out.println(rv.getCityName());
+                            System.out.println(rv.getLongitude());
+                            System.out.println(rv.getLatitude());
+                            System.out.println("Distance : " + list.get(temp));
+                        }
                         count++;
 
                     }
