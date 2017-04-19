@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+             http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+
+    <bean id="clo1" class="pk.edu.nust.seecs.gradebook.entity.Clo">
+        <constructor-arg value="CLO 4"> </constructor-arg>
+        <constructor-arg value="Another CLO is HEre"> </constructor-arg>
+        <constructor-arg value="plo 9"> </constructor-arg>
+        <constructor-arg value="BOA"> </constructor-arg>
+    </bean>
+    <bean id="clo2" class="pk.edu.nust.seecs.gradebook.entity.Clo">
+        <constructor-arg value="CLO 5"> </constructor-arg>
+        <constructor-arg value="Another CLO is HEre Now"> </constructor-arg>
+        <constructor-arg value="plo 3"> </constructor-arg>
+        <constructor-arg value="BOA1"> </constructor-arg>    
+    </bean>  
+    <bean id="clo3" class="pk.edu.nust.seecs.gradebook.entity.Clo">
+        <constructor-arg value="CLO 6"> </constructor-arg>
+        <constructor-arg value="Another CLO is HEre Again"> </constructor-arg>
+        <constructor-arg value="plo 5"> </constructor-arg>
+        <constructor-arg value="BOA2"> </constructor-arg>
+    </bean>
+    
+    
+    <bean id="student" class="pk.edu.nust.seecs.gradebook.entity.Student"> 
+        <property name="name" value="Ned Stark"> </property>
+        <property name="Courses">
+            <set>
+                <ref bean="course1"/>   
+            </set>
+        </property> 
+    </bean>
+    
+    
+    
+    <bean id="course1" class="pk.edu.nust.seecs.gradebook.entity.Course">
+        
+        <property name="classtitle" value="SC"> </property>
+        <property name="creditHours" value="3" > </property>
+        <property name="teacher">
+            <ref bean="teacher1"/>
+        </property>
+        
+        <property name="students">
+            <set>
+                <ref bean="student"/>
+            </set>
+        </property>
+        
+        <property name="contents">
+            <set>
+                <ref bean="content"/>
+            </set>
+        </property>
+    </bean>
+      
+    <bean id="content" class="pk.edu.nust.seecs.gradebook.entity.Content">
+        <property name="description" value="Some SLid"> </property>
+        <property name="title" value="Content 1"> </property>
+         
+        <property name="students">
+            <set>
+                <ref bean="student"/>
+            </set>
+        </property>
+        
+        <property name="course">
+            <ref bean="course1"/>
+        </property>
+        
+        <property name="clo"> 
+           
+            <list>
+                <ref bean="clo1"/>
+                <ref bean="clo2"/>
+                <ref bean="clo3"/>
+            </list>
+           
+        </property>
+        <property name="grades"> 
+            
+            <set>
+                <ref bean="grade1"/>
+            </set>
+        </property>
+        
+    </bean>
+    
+    
+    
+    <bean id="grade1" class="pk.edu.nust.seecs.gradebook.entity.Grade">
+        <property name="name" value="Quiz"> </property>
+        <property name="score" value="9"> </property>
+        
+        <property name="contentItem">
+            <ref bean="content"/>
+        </property>
+        
+    </bean>
+    
+    
+    <bean id="teacher1" class="pk.edu.nust.seecs.gradebook.entity.Teacher">
+        <property name="name" value="SC"> </property>
+        <property name="courses">
+            <set>
+                <ref bean="course1"/>
+            </set>
+        </property>
+        
+    </bean>
+    
+    
+    
+    <bean id="teachdao" class="pk.edu.nust.seecs.gradebook.dao.TeacherDao">
+    </bean>
+    
+    <bean id="teacherBO" class="pk.edu.nust.seecs.bo.teacherBO">
+        <property name="dao">
+            <ref bean="teachdao"/>
+        </property>
+    </bean>
+    
+    
+    <bean id="studentdao" class="pk.edu.nust.seecs.gradebook.dao.StudentDao">
+    </bean>
+    
+    <bean id="studBO" class="pk.edu.nust.seecs.bo.studentBO">
+        <property name="dao">
+            <ref bean="studentdao"/>
+        </property>
+    </bean>
+    
+    
+     <bean id="gradedao" class="pk.edu.nust.seecs.gradebook.dao.GradeDao">
+    </bean>
+    
+    <bean id="gradeBO" class="pk.edu.nust.seecs.bo.gradeBO">
+        <property name="dao">
+            <ref bean="gradedao"/>
+        </property>
+    </bean>
+    
+    
+    <bean id="clodao" class="pk.edu.nust.seecs.gradebook.dao.CloDao">
+    </bean>
+    
+    <bean id="cloBO" class="pk.edu.nust.seecs.bo.cloBO">
+        <property name="clodao">
+            <ref bean="clodao"/>
+        </property>
+    </bean>
+    
+    
+    
+     <bean id="coursedao" class="pk.edu.nust.seecs.gradebook.dao.CourseDao">
+    </bean>
+    
+    <bean id="courseBO" class="pk.edu.nust.seecs.bo.courseBO">
+        <property name="dao">
+            <ref bean="coursedao"/>
+        </property>
+    </bean>
+    
+    
+    <bean id="contentdao" class="pk.edu.nust.seecs.gradebook.dao.ContentDao">
+    </bean>
+    
+    <bean id="contentBO" class="pk.edu.nust.seecs.bo.contentBO">
+        <property name="dao">
+            <ref bean="contentdao"/>
+        </property>
+    </bean>
+    
+    
+</beans>
