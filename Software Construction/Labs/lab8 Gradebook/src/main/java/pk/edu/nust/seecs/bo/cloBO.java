@@ -1,6 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pk.edu.nust.seecs.bo;
 
-import java.util.List;
 import pk.edu.nust.seecs.gradebook.dao.CloDao;
 import pk.edu.nust.seecs.gradebook.entity.Clo;
 
@@ -10,12 +14,26 @@ import pk.edu.nust.seecs.gradebook.entity.Clo;
  */
 public class cloBO {
 
-    CloDao clodao;
+    private CloDao clodao;
 
-    public cloBO() {
-        clodao = new CloDao();
+    public Clo findClo(int id) {
+        return clodao.getCloById(id);
     }
-// Update via DAO
+
+    //    The lonesome people
+    public Clo saveClo(String name, String description, String plo, String btlevel) {
+        Clo clo = new Clo();
+        clo.setName(name);
+        clo.setDescription(description);
+        clo.setPlo(plo);
+        clo.setBtLevel(btlevel);
+        clodao.addClo(clo);
+        return clo;
+
+    }
+    public void UpdateClo(Clo c){
+        clodao.updateClo(c);
+    }
 
     public CloDao getClodao() {
         return clodao;
@@ -24,36 +42,8 @@ public class cloBO {
     public void setClodao(CloDao clodao) {
         this.clodao = clodao;
     }
-
     
     
-    public void updateClo(Clo cloId) {
+    
 
-        clodao.updateClo(cloId);
-
-    }
-
-    // Get Only One CLO
-    public Clo getClo(int cloId) {
-
-        return clodao.getCloById(cloId);
-
-    }
-
-    // Get the lists of all the employees
-    public List<Clo> getAll() {
-        return clodao.getAllClos();
-
-    }
-
-    // Adding the Clo
-    public void addClo(Clo clo) {
-        clodao.addClo(clo);
-    }
-
-    // Deleting the Clo
-
-    public void deleteClo(int cloid) {
-        clodao.deleteClo(cloid);
-    }
 }

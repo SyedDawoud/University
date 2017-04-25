@@ -36,9 +36,18 @@ public class Grade implements java.io.Serializable {
     @JoinColumn(name="content_id",nullable=false)
     private Content contentItem;
 
+    
+    public Integer getGradeId() {
+        return gradeId;
+    }
+
     /*
-    * Class constructor.
-    */
+     * Class constructor.
+     */
+    public void setGradeId(Integer gradeId) {
+        this.gradeId = gradeId;
+    }
+
     public Grade() {
     }
     

@@ -1,62 +1,55 @@
+
 package pk.edu.nust.seecs.bo;
 
-import java.util.List;
-import pk.edu.nust.seecs.gradebook.dao.CloDao;
-import pk.edu.nust.seecs.gradebook.dao.ContentDao;
-import pk.edu.nust.seecs.gradebook.dao.CourseDao;
+import java.util.Set;
 import pk.edu.nust.seecs.gradebook.dao.TeacherDao;
-import pk.edu.nust.seecs.gradebook.entity.Clo;
-import pk.edu.nust.seecs.gradebook.entity.Content;
 import pk.edu.nust.seecs.gradebook.entity.Course;
 import pk.edu.nust.seecs.gradebook.entity.Teacher;
 
 /**
  *
  * @author Dawoud Ali
+ * @version 1.0
  */
+
+//Teacher BO. It will save, update and get the teacher based on the values
 public class teacherBO {
-
-    public TeacherDao getDao() {
-        return dao;
-    }
-
-    public void setDao(TeacherDao dao) {
-        this.dao = dao;
-    }
     
-    TeacherDao dao;
+    private TeacherDao teacherdao;
     
-    public teacherBO() {
-        dao = new TeacherDao();
+//    Find the Being with Id
+    public Teacher findTeacher(int id){
+        return teacherdao.getTeacherById(id);
+          
     }
-// Update via DAO
+//    Save the Lonely Teacher
+    public Teacher saveTeacher(String name) {
+        Teacher t = new Teacher();
+        t.setName(name);
+        teacherdao.addTeacher(t);
+        return t;
 
-    public void updateTeacher(Teacher cloId) {
-        
-        dao.updateTeacher(cloId);
-        
     }
-
-    // Get Only One CLO
-    public Teacher getTeacher(int cloId) {
-        
-        return dao.getTeacherById(cloId);
-        
-    }
-
-    // Get the lists of all the employees
-    public List<Teacher> getAll() {
-        return dao.getAllTeachers();
-        
+//    Updating the Teacher Later
+     public Teacher updateTeacherWithCourses(int id, Set<Course> courseSet) {
+        Teacher t = teacherdao.getTeacherById(id);
+        t.setCourses(courseSet);
+        teacherdao.updateTeacher(t);
+        return t;
     }
 
-    // Adding the Clo
-    public void addTeacher(Teacher content) {
-        dao.addTeacher(content);
+     public void UpdateTeacher(Teacher t){
+         teacherdao.updateTeacher(t);
+     }
+     
+    public TeacherDao getTeacherdao() {
+        return teacherdao;
     }
 
-    // Deleting the Clo
-    public void deleteTeacher(int contentid) {
-        dao.deleteTeacher(contentid);
+    public void setTeacherdao(TeacherDao teacherdao) {
+        this.teacherdao = teacherdao;
     }
+     
+     
+    
 }

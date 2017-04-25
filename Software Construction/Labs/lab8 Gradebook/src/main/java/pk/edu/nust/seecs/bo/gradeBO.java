@@ -1,12 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pk.edu.nust.seecs.bo;
 
-import java.util.List;
-import pk.edu.nust.seecs.gradebook.dao.CloDao;
 import pk.edu.nust.seecs.gradebook.dao.GradeDao;
-import pk.edu.nust.seecs.gradebook.dao.StudentDao;
-import pk.edu.nust.seecs.gradebook.entity.Clo;
+import pk.edu.nust.seecs.gradebook.entity.Content;
 import pk.edu.nust.seecs.gradebook.entity.Grade;
-import pk.edu.nust.seecs.gradebook.entity.Student;
 
 /**
  *
@@ -14,47 +15,34 @@ import pk.edu.nust.seecs.gradebook.entity.Student;
  */
 public class gradeBO {
     
-    GradeDao dao;
+    private GradeDao gradedao;
     
-    public gradeBO() {
-        dao = new GradeDao();
+    
+    public Grade findGrade(int id){
+        return gradedao.getGradeById(id);
     }
-// Update via DAO
+    
+     public Grade saveGrade(String name, int score, Content c) {
+        Grade grade = new Grade();
+        grade.setName(name);
+        grade.setScore(score);
+        grade.setContentItem(c);
+        gradedao.addGrade(grade);
+        return grade;
 
-    public void updateClo(Grade cloId) {
-        
-        dao.updateGrade(cloId);
-        
     }
+     
+     public void UpdateGrade(Grade grade){
+         gradedao.updateGrade(grade);
+     }
 
-    public GradeDao getDao() {
-        return dao;
-    }
-
-    public void setDao(GradeDao dao) {
-        this.dao = dao;
-    }
-
-    // Get Only One CLO
-    public Grade getClo(int cloId) {
-        
-        return dao.getGradeById(cloId);
-        
+    public GradeDao getGradedao() {
+        return gradedao;
     }
 
-    // Get the lists of all the employees
-    public List<Grade> getAll() {
-        return dao.getAllGrades();
-        
+    public void setGradedao(GradeDao gradedao) {
+        this.gradedao = gradedao;
     }
-
-    // Adding the Clo
-    public void addClo(Grade clo) {
-        dao.addGrade(clo);
-    }
-
-    // Deleting the Clo
-    public void deleteGrade(int cloid) {
-        dao.deleteGrade(cloid);
-    }
+     
+     
 }

@@ -1,62 +1,66 @@
 package pk.edu.nust.seecs.bo;
 
-import java.util.List;
-import pk.edu.nust.seecs.gradebook.dao.CloDao;
-import pk.edu.nust.seecs.gradebook.dao.ContentDao;
+import java.util.Date;
+import java.util.Set;
 import pk.edu.nust.seecs.gradebook.dao.CourseDao;
-import pk.edu.nust.seecs.gradebook.entity.Clo;
 import pk.edu.nust.seecs.gradebook.entity.Content;
 import pk.edu.nust.seecs.gradebook.entity.Course;
+import pk.edu.nust.seecs.gradebook.entity.Student;
+import pk.edu.nust.seecs.gradebook.entity.Teacher;
 
 /**
  *
  * @author Dawoud Ali
  */
 public class courseBO {
+
+    private CourseDao coursedao;
+
+    public Course findCourse(int id) {
+        return coursedao.getCourseById(id);
+    }
+
+    //    Course Can't be saved without Teacher
+    public Course saveCourse(String title, Date start, Date end, int credit, Teacher t) {
+        Course c = new Course();
+        c.setClasstitle(title);
+        c.setStartsOn(start);
+        c.setEndsOn(end);
+        c.setCreditHours(credit);
+        c.setTeacher(t);
+        coursedao.addCourse(c);
+        return c;
+
+    }
+
+    //     Course Updation With Content
+    public Course updateCourseWithContents(int id, Set<Content> content) {
+        Course c = coursedao.getCourseById(id);
+        c.setContents(content);
+        coursedao.updateCourse(c);
+        return c;
+
+    }
+//    Course Updation with Students
+
+    public Course updateCourseWithStudents(int id, Set<Student> student) {
+        Course c = coursedao.getCourseById(id);
+        c.setStudents(student);
+        coursedao.updateCourse(c);
+        return c;
+    }
     
-    CourseDao dao;
     
-    public courseBO() {
-        dao = new CourseDao();
-    }
-// Update via DAO
-
-    public void updateClo(Course cloId) {
-        
-        dao.updateCourse(cloId);
-        
+    public void UpdateCourse(Course c){
+        coursedao.updateCourse(c);
     }
 
-    public CourseDao getDao() {
-        return dao;
+    public CourseDao getCoursedao() {
+        return coursedao;
     }
 
-    public void setDao(CourseDao dao) {
-        this.dao = dao;
-    }
-    
-    
-
-    // Get Only One CLO
-    public Course getCourse(int cloId) {
-        
-        return dao.getCourseById(cloId);
-        
+    public void setCoursedao(CourseDao coursedao) {
+        this.coursedao = coursedao;
     }
 
-    // Get the lists of all the employees
-    public List<Course> getAll() {
-        return dao.getAllCourses();
-        
-    }
-
-    // Adding the Clo
-    public void addCourse(Course content) {
-        dao.addCourse(content);
-    }
-
-    // Deleting the Clo
-    public void deleteCourse(int contentid) {
-        dao.deleteCourse(contentid);
-    }
 }

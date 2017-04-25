@@ -118,62 +118,60 @@
     <bean id="teachdao" class="pk.edu.nust.seecs.gradebook.dao.TeacherDao">
     </bean>
     
-    <bean id="teacherBO" class="pk.edu.nust.seecs.bo.teacherBO">
-        <property name="dao">
-            <ref bean="teachdao"/>
-        </property>
-    </bean>
-    
-    
     <bean id="studentdao" class="pk.edu.nust.seecs.gradebook.dao.StudentDao">
     </bean>
-    
-    <bean id="studBO" class="pk.edu.nust.seecs.bo.studentBO">
-        <property name="dao">
-            <ref bean="studentdao"/>
-        </property>
-    </bean>
-    
-    
-     <bean id="gradedao" class="pk.edu.nust.seecs.gradebook.dao.GradeDao">
-    </bean>
-    
-    <bean id="gradeBO" class="pk.edu.nust.seecs.bo.gradeBO">
-        <property name="dao">
-            <ref bean="gradedao"/>
-        </property>
-    </bean>
-    
+     
+    <bean id="gradedao" class="pk.edu.nust.seecs.gradebook.dao.GradeDao">
+    </bean>  
     
     <bean id="clodao" class="pk.edu.nust.seecs.gradebook.dao.CloDao">
     </bean>
+   
     
-    <bean id="cloBO" class="pk.edu.nust.seecs.bo.cloBO">
-        <property name="clodao">
-            <ref bean="clodao"/>
-        </property>
+    <bean id="coursedao" class="pk.edu.nust.seecs.gradebook.dao.CourseDao">
     </bean>
-    
-    
-    
-     <bean id="coursedao" class="pk.edu.nust.seecs.gradebook.dao.CourseDao">
-    </bean>
-    
-    <bean id="courseBO" class="pk.edu.nust.seecs.bo.courseBO">
-        <property name="dao">
-            <ref bean="coursedao"/>
-        </property>
-    </bean>
-    
-    
+   
     <bean id="contentdao" class="pk.edu.nust.seecs.gradebook.dao.ContentDao">
     </bean>
     
-    <bean id="contentBO" class="pk.edu.nust.seecs.bo.contentBO">
-        <property name="dao">
-            <ref bean="contentdao"/>
-        </property>
-    </bean>
+    
+    
+   <bean id="studentBO" class="pk.edu.nust.seecs.bo.studentBO">
+       <property name="studentdao">
+           <ref bean="studentdao"/>
+       </property>
+   </bean>
+   
+   <bean id="teacherBO" class="pk.edu.nust.seecs.bo.teacherBO">
+       <property name="teacherdao">
+           <ref bean="teachdao"/>
+       </property>
+   </bean>
+   
+   <bean id="cloBO" class="pk.edu.nust.seecs.bo.cloBO">
+       <property name="clodao">
+           <ref bean="clodao"/>
+       </property>
+   </bean>
+   
+   <bean id="courseBO" class="pk.edu.nust.seecs.bo.courseBO">
+       <property name="coursedao">
+           <ref bean="coursedao"/>
+       </property>
+   </bean>
+   
+   <bean id="gradeBO" class="pk.edu.nust.seecs.bo.gradeBO">
+       <property name="gradedao">
+           <ref bean="gradedao"/>
+       </property>
+   </bean>
+   
+   <bean id="contentBO" class="pk.edu.nust.seecs.bo.contentBO">
+       <property name="contentdao">
+           <ref bean="contentdao"/>
+       </property>
+   </bean>
+   
     
     
 </beans>

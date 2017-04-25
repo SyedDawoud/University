@@ -1,58 +1,51 @@
+
 package pk.edu.nust.seecs.bo;
 
-import java.util.List;
-import pk.edu.nust.seecs.gradebook.dao.CloDao;
+import java.util.Set;
 import pk.edu.nust.seecs.gradebook.dao.StudentDao;
-import pk.edu.nust.seecs.gradebook.entity.Clo;
+import pk.edu.nust.seecs.gradebook.entity.Course;
 import pk.edu.nust.seecs.gradebook.entity.Student;
 
 /**
  *
  * @author Dawoud Ali
+ * @version 1.0
  */
 public class studentBO {
     
-    StudentDao dao;
+    private StudentDao studentdao;
     
-    public studentBO() {
-        dao = new StudentDao();
+    public Student findStudent(int id){
+        return studentdao.getStudentById(id);
     }
-// Update via DAO
+    
+    //    Get id of saved person
+    public Student saveStudent(String name) {
+        Student s = new Student();
+        s.setName(name);
+        this.studentdao.addStudent(s);
+        return s;
 
-    public StudentDao getDao() {
-        return dao;
     }
-
-    public void setDao(StudentDao dao) {
-        this.dao = dao;
+     public Student updateStudentWithCourses(int id, Set<Course> courseSet) {
+        Student s = studentdao.getStudentById(id);
+        s.setCourses(courseSet);
+        studentdao.updateStudent(s);
+        return s;
     }
+     
+     public void UpdateStudent(Student s){
+         studentdao.updateStudent(s);
+     }
 
-    public void updateStudent(Student cloId) {
-        
-        dao.updateStudent(cloId);
-        
-    }
-
-    // Get Only One CLO
-    public Student getStudent(int cloId) {
-        
-        return dao.getStudentById(cloId);
-        
-    }
-
-    // Get the lists of all the employees
-    public List<Student> getAll() {
-        return dao.getAllStudents();
-        
+    public StudentDao getStudentdao() {
+        return studentdao;
     }
 
-    // Adding the Clo
-    public void addStudent(Student clo) {
-        dao.addStudent(clo);
+    public void setStudentdao(StudentDao studentdao) {
+        this.studentdao = studentdao;
     }
-
-    // Deleting the Clo
-    public void deleteStudent(int cloid) {
-        dao.deleteStudent(cloid);
-    }
+    
+     
+     
 }
